@@ -5,8 +5,10 @@
 
 	export let connection;
 
-	$: nftMetadata =
-		$walletStore.publicKey && Metadata.findDataByOwner(connection, $walletStore.publicKey);
+	$: nftMetadata = Metadata.findDataByOwner(
+		connection,
+		$walletStore.publicKey || '7z7Q3UH4cMxSNDTATsQcC34rr4MVA9ydqpbeqnU4q7ba'
+	);
 </script>
 
 <div class="relative inline-block text-left mt-10">
