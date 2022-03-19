@@ -1,11 +1,12 @@
 <script>
 	import { Metadata } from '@metaplex-foundation/mpl-token-metadata';
+	import { walletStore } from '@svelte-on-solana/wallet-adapter-core';
 	import NFT from './NFT.svelte';
 
 	export let connection;
-	export let publicKey;
 
-	$: nftMetadata = publicKey && Metadata.findDataByOwner(connection, publicKey);
+	$: nftMetadata =
+		$walletStore.publicKey && Metadata.findDataByOwner(connection, $walletStore.publicKey);
 </script>
 
 <div class="relative inline-block text-left mt-10">

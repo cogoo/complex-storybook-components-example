@@ -7,10 +7,36 @@
 	const network = clusterApiUrl('mainnet-beta');
 	const connection = new Connection(network);
 	export let publicKey;
+
+	import { onMount } from 'svelte';
+
+	import {
+		workSpace,
+		WalletProvider,
+		WalletMultiButton,
+		ConnectionProvider
+	} from '@svelte-on-solana/wallet-adapter-ui';
+
+	const localStorageKey = 'walletAdapter';
+
+	let wallets;
+
+	onMount(async () => {
+		const { PhantomWalletAdapter, SolflareWalletAdapter } = await import(
+			'@solana/wallet-adapter-wallets'
+		);
+
+		wallets = [new PhantomWalletAdapter(), new SolflareWalletAdapter()];
+	});
 </script>
 
+<WalletProvider {localStorageKey} {wallets} autoConnect />
+<ConnectionProvider {network} />
+
+<WalletMultiButton />
+
 <article>
-	<NftViewer {connection} {publicKey} />
+	<NftViewer connection={$workSpace.connection} />
 
 	<section>
 		<h2>Pages in Storybook</h2>
