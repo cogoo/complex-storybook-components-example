@@ -1,35 +1,16 @@
 <script>
 	import './page.css';
+	import '../app.css';
 	import NftViewer from '../components/NftViewer.svelte';
+	import { Connection, clusterApiUrl } from '@solana/web3.js';
 
-	import { onMount } from 'svelte';
-	import { clusterApiUrl } from '@solana/web3.js';
-	import {
-		workSpace,
-		WalletProvider,
-		WalletMultiButton,
-		ConnectionProvider
-	} from '@svelte-on-solana/wallet-adapter-ui';
-
-	const localStorageKey = 'walletAdapter';
-	const network = clusterApiUrl('devnet');
-
-	let wallets;
-
-	onMount(async () => {
-		const { PhantomWalletAdapter } = await import('@solana/wallet-adapter-wallets');
-
-		wallets = [new PhantomWalletAdapter()];
-	});
+	const network = clusterApiUrl('mainnet-beta');
+	const connection = new Connection(network);
+	export let publicKey;
 </script>
 
-<WalletProvider {localStorageKey} {wallets} />
-<ConnectionProvider {network} />
-
 <article>
-	<WalletMultiButton />
-
-	<NftViewer />
+	<NftViewer {connection} {publicKey} />
 
 	<section>
 		<h2>Pages in Storybook</h2>
