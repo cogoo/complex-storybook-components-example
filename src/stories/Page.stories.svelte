@@ -1,32 +1,12 @@
 <script>
-  import { Meta, Template, Story } from "@storybook/addon-svelte-csf";
-  import Page from "./Page.svelte";
+	import { Meta, Template, Story } from '@storybook/addon-svelte-csf';
+	import Page from './Page.svelte';
 </script>
 
-<Meta
-  title="Example/Page"
-  component={Page}
-  argTypes={{
-    onLogin: { action: "onLogin" },
-    onLogout: { action: "onLogout" },
-    onCreateAccount: { action: "onCreateAccount" },
-  }}
-/>
+<Meta title="Example/Page" component={Page} />
 
 <Template let:args>
-  <Page
-    {...args}
-    on:login={args.onLogin}
-    on:logout={args.onLogout}
-    on:createAccount={args.onCreateAccount}
-  />
+	<Page />
 </Template>
 
-<Story
-  name="LoggedIn"
-  args={{
-    user: {},
-  }}
-/>
-
-<Story name="LoggedOut" args={{}} />
+<Story name="Primary" />
